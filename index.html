@@ -3,40 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>India Map Quiz</title>
-  <style>
-    .sea {
-      fill: #cbe8ff;
-    }
-    .land {
-      fill: #fde9b4;
-      stroke: #666;
-      stroke-width: 0.5;
-      cursor: pointer;
-      transition: fill 0.15s;
-    }
-    .land:hover {
-      fill: #ffcb69;
-    }
-    .correct {
-      fill: #6fdc6f !important;
-    }
-    #quiz-box {
-      position: absolute;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: white;
-      padding: 10px 20px;
-      border: 1px solid #ccc;
-      font-family: sans-serif;
-      text-align: center;
-    }
-    #timer {
-      color: red;
-      font-weight: bold;
-      font-size: 18px;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="./assests/images/quizz_logo.png" type="image/png">
 </head>
 <body>
 
@@ -91,61 +59,7 @@
 </svg></div>
 
 
-<script>
-  const states = [...document.querySelectorAll('.land')];
-  let currentIndex = 0;
-  let timeLeft = 60;
-  const timerEl = document.getElementById('timer');
-  const targetStateEl = document.getElementById('targetState');
-
-  // Shuffle the state order
-  function shuffle(arr) {
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-  }
-
-  shuffle(states);
-
-  function setNextTarget() {
-    if (currentIndex >= states.length) {
-      targetStateEl.textContent = "🎉 Finished!";
-      clearInterval(timerInterval);
-      return;
-    }
-    targetStateEl.textContent = states[currentIndex].id.replace(/_/g, ' ');
-  }
-
-  // Click handling
-  states.forEach(state => {
-    state.addEventListener('click', () => {
-      if (state === states[currentIndex]) {
-        state.classList.add('correct');
-        currentIndex++;
-        setNextTarget();
-      } else {
-        state.style.fill = '#e74c3c'; // red if wrong
-        setTimeout(() => {
-          state.style.fill = '';
-        }, 500);
-      }
-    });
-  });
-
-  // Timer
-  const timerInterval = setInterval(() => {
-    timeLeft--;
-    timerEl.textContent = timeLeft;
-    if (timeLeft <= 0) {
-      clearInterval(timerInterval);
-      targetStateEl.textContent = "⏰ Time's up!";
-    }
-  }, 1000);
-
-  // Start
-  setNextTarget();
-</script>
+<script src="app.js"></script>
 
 </body>
 </html>
